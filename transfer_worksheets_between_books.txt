@@ -7,7 +7,7 @@ Dim newwb As Workbook ' New workbook
 Set currentwb = Workbooks("CurrentWorkbookName.xlsm")
 Set newwb = Workbooks("NewWorkBookName.xlsm")
 
-#replace worksheet1, worksheet 2 with the names of the worksheets to be moved
+'replace worksheet1, worksheet 2 with the names of the worksheets to be moved
 currentwb.Worksheets(Array("worksheet1", "worksheet2")).Move _
 After:=newwb.Worksheets(newwb.Worksheets.Count)
 
