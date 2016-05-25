@@ -1,0 +1,14 @@
+Sub standardize_view()
+
+For Each ws In Sheets
+    If ws.Visible = True Then
+        ws.Select
+        Application.Goto Range("A1"), True
+        ActiveWindow.VisibleRange(1, 1).Select
+        ActiveWindow.Zoom = 65
+    End If
+Next ws
+
+
+End Sub
+
