@@ -1,0 +1,51 @@
+Sub HideSheetsForUpdating()
+
+Application.ScreenUpdating = False
+For Each ws In Sheets
+    
+    Select Case ws.Name
+    
+    Case "sheets to be", "hidden"
+    ws.Visible = False
+    
+    Case "sheets that are", "visible"
+    ws.Visible = True
+    
+    Case Else
+    
+    ws.Visible = False
+    End Select
+    
+Next ws
+
+ActiveWorkbook.Sheets("FirstSheet").Select
+Application.ScreenUpdating = True
+
+End Sub
+
+
+Sub UnhideAllSheets()
+
+Application.ScreenUpdating = False
+
+For Each ws In Sheets
+    
+    Select Case ws.Name
+    
+    Case "sheets to be", "hidden"
+    ws.Visible = True
+    
+    Case "sheets that are", "visible"
+    ws.Visible = True
+    
+    Case Else
+    
+    ws.Visible = True
+    End Select
+    
+Next ws
+
+ActiveWorkbook.Sheets("FirstSheet").Select
+Application.ScreenUpdating = True
+
+End Sub

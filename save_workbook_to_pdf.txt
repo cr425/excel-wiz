@@ -1,0 +1,32 @@
+Sub save_pdf()
+
+Application.ScreenUpdating = False
+#places cursor in top right of every sheet
+For Each ws In Sheets
+    If ws.Visible = True Then
+        ws.Select
+        Application.Goto Range("A1"), True
+        ActiveWindow.VisibleRange(1, 1).Select
+        ActiveWindow.Zoom = 65
+    End If
+Next ws
+
+#reselects the first sheet in the workbook
+ActiveWorkbook.Worksheets("FirstSheet").Select
+Application.ScreenUpdating = True
+
+#
+Dim sPath As String, sFile As String
+'file location to save to
+sPath = "filepath\to\be\saved\"
+'change file name
+sFile = "name_of_file.pdf"
+sPath = sPath & sFile
+
+#saves the entire workbook as a pdf
+ActiveWorkbook.ExportAsFixedFormat Type:=xlTypePDF, Filename:=sPath, Quality:=xlQualityStandard, IncludeDocProperties:=True, IgnorePrintAreas:=False, OpenAfterPublish:=True
+
+End Sub
+
+
+
