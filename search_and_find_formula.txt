@@ -1,0 +1,25 @@
+Sub search_and_find()
+
+Dim rng As Range
+'set the below line to select the range to be scanned
+Set rng = ActiveWorkbook.Worksheets("SheetwithRange").Range("RangetobeScanned")
+Dim i As Integer
+i = 2
+
+'scan all cells in rng and see if the target value was found. If it is found, copy the value into a new column and move the cursor to the cell below for the next cell
+For Each cell In rng
+	'assess if the current cell has a certain value
+    If (InStr(cell.Value, "searchvalue/targetvalue") > 0) Then
+    	'create a column on the current worksheet with all the values that are found and update the row 
+        ActiveWorkbook.Worksheets("SheetwithRange").Range("AZ" & i).Value = cell.Value
+        'keeps track of all the cells that are found and moves the cursor down every time the target value is found
+        i = i + 1
+    End If
+
+Next cell
+
+End Sub
+
+
+
+

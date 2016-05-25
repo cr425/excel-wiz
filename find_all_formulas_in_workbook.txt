@@ -1,0 +1,66 @@
+Sub getAllFormulas()
+
+Dim i As Integer
+Dim ws As Worksheet
+i = 1
+
+'gets the formula from all worksheets by iterating through columns and list the worksheet name and all of the formulas below
+For Each ws In ActiveWorkbook.Sheets
+    If ws.Name <> "FormulaSheet" And ws.Visible = True Then
+        Debug.Print (ws.Name)
+        'calls the module determineFormulas(below) to execute on a given worksheet
+        determineFormulas ws, i
+        'counter to iterate through columns and list the worksheet name and all of the formulas below
+        i = i + 1
+    End If
+Next ws
+
+cleanup
+
+End Sub
+
+Sub determineFormulas(ws As Worksheet, i As Integer)
+
+'Scans a given range in a worksheet and finds any formula
+Application.ScreenUpdating = False
+Dim rnge As Range, cell As Range
+Set rnge = ws.Range("Scan_Area")
+Dim x As Integer
+Dim formula As String
+x = 2
+
+ActiveWindow.DisplayFormulas = True
+
+'assign the top of the formulasheet to the name of the worksheet
+Sheets("FormulaSheet").Cells(1, i).Value = ws.Name
+
+'iterate through a given range and find all formulas
+For Each cell In rnge
+    formula = cell.formula
+    If Left(formula, 1) = "=" Then
+        Sheets("FormulaSheet").Cells(x, i) = cell.Address & " , formula: " & CStr(formula)
+        x = x + 1
+    End If
+    
+Next
+
+Application.ScreenUpdating = False
+ActiveWindow.DisplayFormulas = False
+
+End Sub
+
+Sub cleanup()
+
+Dim i As Integer
+i = 1
+Do While Sheets("FormulaSheet").Cells(1, i).Value <> ""
+    Sheets("FormulaSheet").Cells(2, i).Select
+    If Sheets("FormulaSheet").Cells(2, i).Value = "" Then
+        Columns(i).Delete
+    Else
+        i = i + 1
+    End If
+  
+Loop
+
+End Sub
